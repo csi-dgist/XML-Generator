@@ -1,178 +1,173 @@
 # DDS QoS XML Generator
 
-DDS QoS 테스트 케이스를 위한 XML 파일 자동 생성 도구입니다. 16개 파라미터의 조합을 Pairwise 테스트 방식으로 생성하여 효율적인 테스트 케이스를 만듭니다.
+This tool automatically generates XML files for DDS (Data Distribution Service) QoS test cases. It utilizes the Pairwise Testing methodology to create an efficient set of test cases by combining 16 different parameters.
 
 
 
-
-### 전체 파라미터 개요
+### Parameter Overview
 
 #### 1. ENTITY_FACTORY
-- **조합**: (True, True), (False, False)
+- **Combinations**: (True, True), (False, False)
 
 #### 2. DATA_EXISTS
-- **설명**: PARTITION, USER_DATA, GROUP_DATA, TOPIC_DATA를 통합한 파라미터
-- **조합**: (exists, exists), (not_exists, not_exists)
+- **Description**: Integrated parameter for PARTITION, USER_DATA, GROUP_DATA, and TOPIC_DATA.
+- **Combinations**: (exists, exists), (not_exists, not_exists)
 
 #### 3. RELIABILITY
-- **값 종류**: Reliable, Best_effort
-- **조합**: 2 × 2 = 4개
+- **Values**: Reliable, Best_effort
+- **Combinations**: 2 × 2 = 4cases
 
 #### 4. DURABILITY
-- **값 종류**: Volatile, Transient_Local, Transient, Persistent
-- **조합**: 4 × 4 = 16개
+- **Values**: Volatile, Transient_Local, Transient, Persistent
+- **Combinations**: 4 × 4 = 16cases
 
 #### 5. DEADLINE
-- **값 종류**: 
-  - `PP`: D < 2×PP 케이스
-  - `2×PP`: D ≥ 2×PP 케이스
-  - `DURATION_INFINITY`: 무한대
-- **조합**: 3 × 3 = 9개
+- **Values**: 
+  - `PP`: D < 2×PP 
+  - `2×PP`: D ≥ 2×PP 
+  - `DURATION_INFINITY`
+- **Combinations**: 3 × 3 = 9cases
 
 #### 6. LIVELINESS
-- **값 종류**: 
+- **Values**: 
   - `(AUTOMATIC, 0.5×PP)`: lease_duration < 2×PP
   - `(AUTOMATIC, PP)`: lease_duration < 2×PP
   - `(AUTOMATIC, 2×PP)`: lease_duration ≥ 2×PP
-  - `(AUTOMATIC, DURATION_INFINITY)`: 무한대
+  - `(AUTOMATIC, DURATION_INFINITY)`
   - `(MANUAL_BY_PARTICIPANT, None)`
   - `(MANUAL_BY_TOPIC, None)`
-- **조합**: 6 × 6 = 36개
+- **Combinations**: 6 × 6 = 36cases
 
 #### 7. HISTORY
-- **값 종류**: 
+- **Values**: 
   - `(KEEP_ALL, None)`: KEEP_ALL
   - `(KEEP_LAST, 1)`: depth=1
   - `(KEEP_LAST, <(RTT/PP)+2)`: depth < (RTT/PP)+2
   - `(KEEP_LAST, =(RTT/PP)+2)`: depth = (RTT/PP)+2
   - `(KEEP_LAST, >(RTT/PP)+2)`: depth > (RTT/PP)+2
-- **조합**: 5 × 5 = 25개
+- **Combinations**: 5 × 5 = 25cases
 
 #### 8. RESOURCE_LIMITS_MAX_SAMPLES_PER_INSTANCE
-- **값 종류**: 
+- **Values**: 
   - `1`: = 1
   - `<(RTT/PP)+2`: < (RTT/PP)+2
   - `=(RTT/PP)+2`: = (RTT/PP)+2
   - `>(RTT/PP)+2`: > (RTT/PP)+2
-- **조합**: 4 × 4 = 16개
+- **Combinations**: 4 × 4 = 16cases
 
 #### 9. RESOURCE_LIMITS_MAX_SAMPLES
-- **값 종류**: `1`, `(RTT/PP+3)×PP`
-- **조합**: 2 × 2 = 4개
+- **Values**: `1`, `(RTT/PP+3)×PP`
+- **Combinations**: 2 × 2 = 4cases
 
 #### 10. LIFESPAN
-- **값 종류**: `0.5×RTT`, `DURATION_INFINITY`
-- **조합**: 2 × 2 = 4개
+- **Values**: `0.5×RTT`, `DURATION_INFINITY`
+- **Combinations**: 2 × 2 = 4cases
 
 #### 11. OWNERSHIP
-- **값 종류**: `SHARED`, `EXCLUSIVE`
-- **조합**: 2 × 2 = 4개
+- **Values**: `SHARED`, `EXCLUSIVE`
+- **Combinations**: 2 × 2 = 4cases
 
 #### 12. DESTINATION_ORDER
-- **값 종류**: `BY_RECEPTION_TIMESTAMP`, `BY_SOURCE_TIMESTAMP`
-- **조합**: 2 × 2 = 4개
+- **Values**: `BY_RECEPTION_TIMESTAMP`, `BY_SOURCE_TIMESTAMP`
+- **Combinations**: 2 × 2 = 4cases
 
 #### 13. WRITER_DATA_LIFECYCLE
-- **설명**: Publisher에만 적용되는 파라미터
-- **값 종류**: `True`, `False`
-- **조합**: 2개
+- **Description**: Parameter applicable to Publisher only.
+- **Values**: `True`, `False`
+- **Combinations**: 2cases
 
 #### 14. READER_DATA_LIFECYCLE_NO_WRITER
-- **설명**: Subscriber에만 적용되는 파라미터
-- **값 종류**: `0`, `3`
-- **조합**: 2개
+- **Description**: Parameter applicable to Subscriber only.
+- **Values**: `0`, `3`
+- **Combinations**: 2cases
 
 #### 15. READER_DATA_LIFECYCLE_DISPOSED
-- **설명**: Subscriber에만 적용되는 파라미터
-- **값 종류**: `0`, `3`
-- **조합**: 2개
+- **Description**: Parameter applicable to Subscriber only.
+- **Values**: `0`, `3`
+- **Combinations**: 2cases
 
 ---
 
-## Pairwise 테스트 케이스 생성 방식
+## Pairwise Testing Methodology
 
-Pairwise 테스트는 모든 파라미터 쌍의 조합을 최소 한 번씩 커버하는 최소 테스트 케이스를 생성하는 방법
-
-
+Pairwise testing is a combinatorial software testing method that, for each pair of input parameters to a system, tests all possible discrete combinations of those parameters. This ensures high test coverage with a significantly reduced number of test cases.
 
 
-### 실제 실행 결과 (PP=0.1, RTT=0.2)
+
+### Execution Results (Example: PP=0.1, RTT=0.2)
 
 ```
-총 853개의 테스트 케이스 생성
-XML 파일: 1,706개 (853개 케이스 × 2 파일)
+Total Test Cases Generated: 853
+XML Files: 1,706 total (853 cases × 2 files per case)
   - pub_qos_case_00001.xml ~ pub_qos_case_00853.xml
   - sub_qos_case_00001.xml ~ sub_qos_case_00853.xml
 ```
 
 ---
 
-## 실행 방법
+## How to Use
 
-### 1. 필수 요구사항
+### 1. Prerequisites
 
-- Python 3.6 이상
-- 필수 라이브러리:
-
-
-- Pairwise 알고리즘 라이브러리:
+- Python 3.6 or higher
+- Pairwise Algorithm Library:
   ```bash
   pip install allpairspy
   ```
 
-### 2. 파일 구조
+### 2. Project Structure
 
 ```
 XML Generator/
-├── xml_generator.py      # 메인 코드
+├── xml_generator.py      # Main execution script
 ├── xml/
-│   ├── pub_qos.xml       # Publisher 템플릿
-│   └── sub_qos.xml       # Subscriber 템플릿
-└── output/               # 생성된 XML 파일 저장 디렉토리
+│   ├── pub_qos.xml       # Publisher template
+│   └── sub_qos.xml       # Subscriber template
+└── output/               # Directory for generated XML files
 ```
 
-### 3. 실행 방법
+### 3. Execution
 
 ```bash
 cd "/home/user/ros2_ws/src/XML Generator"
 python3 xml_generator.py
 ```
 
-실행 시 다음 정보를 입력합니다:
-- **PP (Publication Period)**: Publication Period 값 (초)
-- **RTT (Round Trip Time)**: Round Trip Time 값 (초)
+Provide the following inputs when prompted:
+- **PP (Publication Period)**: Publication Period 
+- **RTT (Round Trip Time)**: Round Trip Time 
 
 
-### 4. 실행 예시
+### 4. Execution Example
 
 ```
 ============================================================
 DDS QoS XML Generator
 ============================================================
-PP (Publication Period) 값을 입력하세요 (초): 0.1
-RTT (Round Trip Time) 값을 입력하세요 (초): 0.2
+Enter PP (Publication Period) in seconds: 0.1
+Enter RTT (Round Trip Time) in seconds: 0.2
 
-입력된 값:
-  PP: 0.1 초
-  RTT: 0.2 초
+Input Values:
+  PP: 0.1 sec
+  RTT: 0.2 sec
   RTT/PP: 2.00
-테스트 케이스 조합 생성 중...
-총 853개의 테스트 케이스 생성
+Generating test case combinations...
+Total 853 test cases generated.
 
-XML 파일 생성 중...
-진행 중: 100/853 (11%)
-진행 중: 200/853 (23%)
+Generating XML files...
+Progress: 100/853 (11%)
+Progress: 200/853 (23%)
 ...
-진행 중: 800/853 (93%)
+Progress: 800/853 (93%)
 
-완료! 총 853개의 테스트 케이스가 생성되었습니다.
-출력 디렉토리: output/
+Complete! A total of 853 test cases have been generated.
+Output Directory: output/
 ```
 
-### 6. 주의사항
+### 6. Precautions
 
-- **PP 값**: 0보다 큰 값이어야 합니다.
-- **기존 파일**: 같은 이름의 파일이 있으면 덮어씁니다.
-- **디렉토리**: `output/` 디렉토리가 없으면 자동으로 생성됩니다.
+- **PP Value**: Must be a value greater than 0.
+- **File Overwriting**: Existing files with the same name in the output/ directory will be overwritten.
+- **Directory Creation**: The `output/` directory will be created automatically if it does not exist.
 
 ---
