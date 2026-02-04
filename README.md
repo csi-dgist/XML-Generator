@@ -178,15 +178,15 @@ Output Directory: output/
 ### 1. Computing Resources
 | Component | Laptop 1 (To be updated) | Laptop 2 (Validation) |
 | :--- | :--- | :--- |
-| **Model** | (Pending) | Lenovo IdeaPad 1 15ALC7 |
-| **Operating System** | Linux (Ubuntu) | Ubuntu 22.04.5 LTS |
-| **Processor (CPU)** | (Pending) | AMD Ryzen 5 5500U |
-| **Memory (RAM)** | (Pending) | 6.0 GB |
+| **Model** | LG Gram (15ZD970) | Lenovo IdeaPad 1 15ALC7 |
+| **Operating System** | Ubuntu 22.04.5 LTS | Ubuntu 22.04.5 LTS |
+| **Processor (CPU)** | Intel Core i7-7500U @ 2.70GHz | AMD Ryzen 5 5500U |
+| **Memory (RAM)** | 8.0 GB (Available: 7.6GiB) | 6.0 GB (Available: 5.6GiB) |
 
 ### 2. Supported DDS Implementations
 The generated XMLs are compatible with the following middleware versions:
 
-| DDS Implementation | Version | Note |
+| DDS Implementation | Version |
 | :--- | :--- | :--- |
 | **eProsima FastDDS** | `v2.6.9` | 
 | **Eclipse CycloneDDS** | `v0.10.5` | 
