@@ -187,7 +187,7 @@ Output Directory: output/
 The generated XMLs are compatible with the following middleware versions:
 
 | DDS Implementation | Version |
-| :--- | :--- | :--- |
+| :--- | :--- |
 | **eProsima FastDDS** | `v2.6.9` | 
 | **Eclipse CycloneDDS** | `v0.10.5` | 
 | **RTI Connext DDS** | `v6.0.1` | 
