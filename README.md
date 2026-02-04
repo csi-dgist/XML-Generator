@@ -176,7 +176,7 @@ Output Directory: output/
 ## Test Environment & DDS Versions
 
 ### 1. Computing Resources
-| Component | Laptop 1 (To be updated) | Laptop 2 (Validation) |
+| Component | Laptop 1 | Laptop 2 |
 | :--- | :--- | :--- |
 | **Model** | LG Gram (15ZD970) | Lenovo IdeaPad 1 15ALC7 |
 | **Operating System** | Ubuntu 22.04.5 LTS | Ubuntu 22.04.5 LTS |
