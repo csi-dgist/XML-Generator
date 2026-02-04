@@ -2,11 +2,10 @@
 
 > **Automated XML generation tool for DDS (Data Distribution Service) QoS test cases.**
 
-This tool automatically generates XML files for DDS (Data Distribution Service) QoS test cases. It utilizes the Pairwise Testing methodology to create an efficient set of test cases by combining 16 different parameters.
+This tool generates an optimized set of test cases by applying the **Pairwise Testing** methodology across 16 different parameters, ensuring high coverage with maximum efficiency.
 
 
-
-### Parameter Overview
+## Parameter Overview
 
 #### 1. ENTITY_FACTORY
 - **Combinations**: (True, True), (False, False)
