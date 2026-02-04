@@ -172,3 +172,24 @@ Output Directory: output/
 - **Directory Creation**: The `output/` directory will be created automatically if it does not exist.
 
 ---
+
+## Test Environment & DDS Versions
+
+### 1. Computing Resources
+| Component | Laptop 1 (To be updated) | Laptop 2 (Validation) |
+| :--- | :--- | :--- |
+| **Model** | (Pending) | Lenovo IdeaPad 1 15ALC7 |
+| **Operating System** | Linux (Ubuntu) | Ubuntu 22.04.5 LTS |
+| **Processor (CPU)** | (Pending) | AMD Ryzen 5 5500U |
+| **Memory (RAM)** | (Pending) | 6.0 GB |
+
+### 2. Supported DDS Implementations
+The generated XMLs are compatible with the following middleware versions:
+
+| DDS Implementation | Version | Note |
+| :--- | :--- | :--- |
+| **eProsima FastDDS** | `v2.6.9` | 
+| **Eclipse CycloneDDS** | `v0.10.5` | 
+| **RTI Connext DDS** | `v6.0.1` | 
+
+---
